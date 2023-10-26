@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Bootstrap css -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- font awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+      <!--<style>-->
+<!--  .ro{-->
+<!--    margin-left: 5px;-->
+<!--  }-->
+<!--  .help::hover{-->
+<!--    color: white;-->
+<!--  }-->
+<!--</style>-->
+
+    <style>
+        body{
+        background-image: url('static/images/home-bg.jpg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        }
+        #myquicklink a:hover{
+           background-color: #9AB3D1;
+           color: white;
+           border-radius:3px;
+        }
+        button{
+            border: none;
+            background: none;
+            font-size: 14px;
+        }
+        #FilePath{
+            position: absolute;
+            top: 248px;
+            left: 150px;
+        }
+        #save-btn{
+            border: none;
+            background: none;
+            font-size: 14px;
+            position: absolute;
+            top: 90px;
+            left: 175px;
+        }
+
+ .popup-container {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    max-width: 80%; /* Set a maximum width for the popup content */
+    width: 400px; /* Adjust the width as needed */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.close-button {
+    position: absolute;
+    top: 100px;
+    right: 100px;
+    cursor: pointer;
+}
+
+
+    /* New styles for the popup content */
+    .popup-list {
+        list-style: none;
+        padding: 0;
+    }
+
+    .popup-list li {
+        margin-bottom: 10px;
+    }
+
+    .popup-list li strong {
+        display: block;
+    }
+    </style>
+
+    </head>
+    <body>
+
+    <nav class="Licensed-section bg-white">
+    <div class="container-fluid">
+        <div class="d-flex justify-content-between mx-4">
+              <nav class="navbar navbar-expand-lg" style="padding-top:0; padding-bottom:0;">
+                <img style="width:5%" src="static/images/VAS Logo.png">
+                <div class="mt-2 ps-2">
+                   <h6 style="font-size: 12px;">VAS-Visual Analysis Systema</h6>
+                </div>
+              </nav>
+             <nav class="navbar navbar-expand-lg" style="padding-top:0; padding-bottom:0;">
+                <div class="mt-2 ps-2">
+                   <h6 style="font-size: 12px;">Licensed to ISSS</h6>
+                </div>
+             </nav>
+            <nav class="navbar navbar-expand-lg" style="padding-top:0; padding-bottom:0;">
+                <div class="mt-2 ps-2">
+                   <h6 style="font-size: 12px;">Version 5.1</h6>
+                </div>
+             </nav>
+            <nav class="navbar navbar-expand-lg" style="padding-top:0; padding-bottom:0;">
+                <div class="mt-2 ps-2">
+                  <h6 id="date" style="font-size: 12px;"></h6>
+                </div>
+            </nav>
+        </div>
+    </div>
+</nav>
+
+<div id="myquicklink" class="px-4" style="background-color: #B7D1EA;">
+    <div class="container-fluid d-flex flex-wrap align-items-center" style="font-size: 14px;">
+          <ul class="nav me-auto my-1">
+            <li class="nav-item" style="border: 2px solid #4581B3; border-radius: 5px; margin-left: 15px;"><a href="{{ url_for('index') }}" class="nav-link link-dark active fw-bold" aria-current="page"><img src="static/images/Ergonomics-logo.png" alt="E-logo" style="width: 25px;"> Ergonomics</a></li>
+            <li class="nav-item ms-2" style="border: 2px solid #4581B3; border-radius: 5px;"><a href="{{ url_for('SMV') }}" class="nav-link link-dark active fw-bold" aria-current="page"><img src="static/images/SMV-logo.png" alt="S-logo" style="width: 25px;"> SMV</a></li>
+          </ul>
+          <div class="d-flex justify-content-end">
+              <ul class="nav me-auto my-1">
+                <li class="nav-item" style="border: 2px solid #4581B3; border-radius: 5px;"><a href="#" class="nav-link link-dark active fw-bold" aria-current="page"><img src="static/images/help-logo.jpg" alt="logo" style="width: 25px;"> Help</a></li>
+                <li class="nav-item ms-2" style="border: 2px solid #4581B3; border-radius: 5px; margin-right: 15px;"><a href="{{ url_for('login') }}" class="nav-link link-dark active fw-bold" data-bs-toggle="modal" data-bs-target="#pop-up"><img src="static/images/logout-logo.png" alt="logo" style="width: 25px;"> Logout</a></li>
+              </ul>
+          </div>
+    </div>
+</div>
+
+<header id="header" style="box-shadow: 0px 1px 2px #bcbcbc; background-color: #9AB3D1;">
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg d-flex flex-wrap align-items-center" style="padding-top:0; padding-bottom:0;">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <form method="post" enctype="multipart/form-data" action="/">
+                <form method="post" enctype="multipart/form-data" action="/result">
+                    <ul class="nav me-auto mx-2" style="font-size: 14px;">
+                        <li class="nav-item">
+                             <a class="nav-link link-dark active fw-bold"  href="#">Edit</a>
+                        </li>
+                        <li class="nav-item">
+                             <button class="nav-link link-dark active fw-bold">Delete</button>
+                        </li>
+                    </ul>
+                </form>
+            </form>
+        </nav>
+    </div>
+</header>
+
+    <!-- Modal -->
+<div class="modal fade" id="pop-up" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Logout</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h6><i class="fa-solid fa-triangle-exclamation" style="color: #e81127;"></i>  Are you sure?</h6>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+        <a type="button" href="{{ url_for('login') }}" class="btn btn-success">Yes</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <body>
+     <div class="pt-4" style="">
+        <div class="container">
+
+              <form>
+<!--                <label for="filterSelect">Filter by:</label>-->
+<!--                 <select id="filterSelect"></select>-->
+                <div class="form-group">
+                  <div class="dropdown">
+                    <div class="row">
+                      <div class="col-lg-4">
+                        <div class="input-group mb-3">
+                        <select class="custom-select" id="unitNameFilter">
+                          <option selected>Unit Name</option>
+
+                        </select>
+                      </div>
+                      </div>
+                      <div class="col-lg-4">
+                        <div class="input-group mb-3">
+                        <select class="custom-select" id="OperatorCodeFilter">
+                          <option selected>Operator Code</option>
+
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="input-group mb-3">
+                      <select class="custom-select" id="OperatorIdFilter">
+                        <option selected>Operator Id</option>
+
+                      </select>
+                    </div>
+                    </div>
+                    <div class="col-lg-4">
+                    <div class="input-group mb-3">
+                      <select class="custom-select" id="operationGradeFilter">
+                        <option selected>Opreation Grade</option>
+                      </select>
+                    </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="input-group mb-3">
+                        <select class="custom-select" id="SectionNameFilter">
+                          <option selected>Section Name</option>
+
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="input-group mb-3">
+                        <select class="custom-select" id="OperationNameFilter">
+                          <option selected>Operation Name</option>
+
+                        </select>
+                      </div>
+                    </div>
+                    </div>
+
+
+                    </div>
+                  </div>
+              </form>
+
+        <table id="resultTable" class="table  table-striped-columns table" style="margin-top: 60px; background-color: rgb(255, 255, 255); color: rgb(0, 0, 0);">
+            <thead class="table-dark" style="background-color:rgb(239, 238, 238); color:rgb(44, 41, 41)">
+            <tr>
+                <th scope="col">S.No</th>
+                <th scope="col">Unit Name</th>
+                <th scope="col">Operation Grade</th>
+                <th scope="col">Operation Code</th>
+                <th scope="col">Section Name</th>
+                <th scope="col">Operation Name</th>
+                <th scope="col">Work Aid</th>
+                <th scope="col">Description</th>
+                <th scope="col">Operator ID</th>
+                <th scope="col">Date</th>
+                <th>analysis</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for data in data_from_db %}
+            <tr class="ro">
+                <td scope="row">{{ loop.index }}</td>
+                <td scope="row">{{ data.value1 }}</td>
+                <td scope="row">{{ data.value2 }}</td>
+                <td scope="row">{{ data.value3 }}</td>
+                <td scope="row">{{ data.value4 }}</td>
+                <td scope="row">{{ data.value5 }}</td>
+                <td scope="row">{{ data.value6 }}</td>
+                <td scope="row">{{ data.value7 }}</td>
+                <td scope="row">{{ data.value8 }}</td>
+                <td scope="row">{{ data.value9 }}</td>
+                <!-- Modify the "Check" button -->
+                <td scope="row">
+    <button class="btn btn-primary" onclick="showPopup(this)" data-info='{
+        "tony": "{{ data.tony }}",
+        "caption": "{{ data.caption }}",
+        "miller": "{{ data.miller }}",
+        "lp": "{{ data.lp }}",
+        "wanda": "{{ data.wanda }}",
+        "hulk": "{{ data.hulk }}",
+        "panther": "{{ data.panther }}",
+        "lg": "{{ data.lg }}",
+        "clr": "{{ data.clr }}"
+    }'>Check</button>
+    </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Popup container -->
+<div class="popup-container" id="popupContainer">
+    <div class="popup-content" id="popupContent">
+        <!-- Data for the popup will be displayed here -->
+    </div>
+    <button class="btn btn-secondary" onclick="closePopup()">Close</button>
+</div>
+
+    <footer id="footer" style="box-shadow: 0px 1px 2px #bcbcbc; background-color: #4581B3;">
+    <div class="container-fluid text-center" style="font-size: 12px;">
+         <p class="m-0 py-2 text-white">Copyright © 2023 ISSS. All Rights Reserved.</p>
+    </div>
+</footer>
+
+<script>
+    function updateDate() {
+        const now = new Date();
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+        const formattedDate = now.toLocaleString(undefined, options);
+        document.getElementById("date").innerText = formattedDate;
+    }
+
+    setInterval(updateDate, 1000);
+    updateDate();
+
+    const resultTable = document.getElementById('resultTable');
+    const operationGradeFilter = document.getElementById('operationGradeFilter');
+    const unitNameFilter = document.getElementById('unitNameFilter');
+    const OperatorCodeFilter = document.getElementById('OperatorCodeFilter');
+    const OperatorIdFilter = document.getElementById('OperatorIdFilter');
+    const SectionNameFilter = document.getElementById('SectionNameFilter');
+    const OperationNameFilter = document.getElementById('OperationNameFilter');
+
+
+    const operationGradeValues = [];
+    const unitNameValues = [];
+    const OperatorCodeValues = [];
+    const OperatorIdValues = [];
+    const SectionNameValues = [];
+    const OperationNameValues = [];
+
+
+    const rows = resultTable.querySelectorAll('tr');
+    rows.forEach(row => {
+        const operationGradeCell = row.querySelector('td:nth-child(3)'); // Assuming Operation Grade is in the 3rd column
+        const unitNameCell = row.querySelector('td:nth-child(2)');
+         const OperatorCodeCell = row.querySelector('td:nth-child(4)');
+         const OperatorIdCell = row.querySelector('td:nth-child(9)');
+         const SectionNameCell = row.querySelector('td:nth-child(5)');
+         const OperationNameCell = row.querySelector('td:nth-child(6)');// Assuming Unit Name is in the 2nd column
+        if (operationGradeCell && unitNameCell && OperatorCodeCell && OperatorIdCell && SectionNameCell && OperationNameCell) {
+            const operationGradeText = operationGradeCell.textContent.trim();
+            const unitNameText = unitNameCell.textContent.trim();
+            const OperatorCodeText = OperatorCodeCell.textContent.trim();
+            const OperatorIdText = OperatorIdCell.textContent.trim();
+            const SectionNameText = SectionNameCell.textContent.trim();
+            const OperationNameText = OperationNameCell.textContent.trim();
+
+
+            if (!operationGradeValues.includes(operationGradeText)) {
+                operationGradeValues.push(operationGradeText);
+            }
+            if (!unitNameValues.includes(unitNameText)) {
+                unitNameValues.push(unitNameText);
+            }
+             if (!OperatorCodeValues.includes(OperatorCodeText)) {
+                OperatorCodeValues.push(OperatorCodeText);
+            }
+              if (!OperatorIdValues.includes(OperatorIdText)) {
+                OperatorIdValues.push(OperatorIdText);
+            }
+              if (!SectionNameValues.includes(SectionNameText)) {
+                SectionNameValues.push(SectionNameText);
+            }
+              if (!OperationNameValues.includes(OperationNameText)) {
+                OperationNameValues.push(OperationNameText);
+            }
+        }
+    });
+
+    operationGradeValues.forEach(operationGradeText => {
+        const option = document.createElement('option');
+        option.value = operationGradeText;
+        option.textContent = operationGradeText;
+        operationGradeFilter.appendChild(option);
+    });
+
+    unitNameValues.forEach(unitNameText => {
+        const option = document.createElement('option');
+        option.value = unitNameText;
+        option.textContent = unitNameText;
+        unitNameFilter.appendChild(option);
+    });
+       OperatorCodeValues.forEach(OperatorCodeText => {
+        const option = document.createElement('option');
+        option.value = OperatorCodeText;
+        option.textContent = OperatorCodeText;
+        OperatorCodeFilter.appendChild(option);
+    });
+          OperatorIdValues.forEach(OperatorIdText => {
+        const option = document.createElement('option');
+        option.value = OperatorIdText;
+        option.textContent = OperatorIdText;
+        OperatorIdFilter.appendChild(option);
+    });
+         SectionNameValues.forEach(SectionNameText => {
+        const option = document.createElement('option');
+        option.value = SectionNameText;
+        option.textContent = SectionNameText;
+        SectionNameFilter.appendChild(option);
+    });
+         OperationNameValues.forEach(OperationNameText => {
+        const option = document.createElement('option');
+        option.value = OperationNameText;
+        option.textContent = OperationNameText;
+        OperationNameFilter.appendChild(option);
+    });
+
+    operationGradeFilter.addEventListener('change', () => {
+        filterTable2('Operation Grade', operationGradeFilter.value);
+    });
+
+    unitNameFilter.addEventListener('change', () => {
+        filterTable('Unit Name', unitNameFilter.value);
+    });
+
+      OperatorCodeFilter.addEventListener('change', () => {
+        filterTable('Operator Code', OperatorCodeFilter.value);
+    });
+     OperatorIdFilter.addEventListener('change', () => {
+        filterTable4('Operator ID', OperatorIdFilter.value);
+    });
+      SectionNameFilter.addEventListener('change', () => {
+        filterTable4('Section Name', SectionNameFilter.value);
+    });
+      OperationNameFilter.addEventListener('change', () => {
+        filterTable4('Operation Name', OperationNameFilter.value);
+    });
+
+
+    function filterTable(columnName, selectedValue) {
+        rows.forEach(row => {
+            const cell = row.querySelector(`td:nth-child(2)`); // Assuming Unit Name is in the 2nd column
+            if (cell) {
+                const cellText = cell.textContent.trim();
+                const rowDisplay = selectedValue === 'All' || cellText === selectedValue ? '' : 'none';
+                row.style.display = rowDisplay;
+            }
+        });
+    }
+
+       function filterTable2(columnName, selectedValue) {
+        rows.forEach(row => {
+            const cell = row.querySelector(`td:nth-child(3)`); // Assuming Unit Name is in the 2nd column
+            if (cell) {
+                const cellText = cell.textContent.trim();
+                const rowDisplay = selectedValue === 'All' || cellText === selectedValue ? '' : 'none';
+                row.style.display = rowDisplay;
+            }
+        });
+    }
+
+           function filterTable3(columnName, selectedValue) {
+        rows.forEach(row => {
+            const cell = row.querySelector(`td:nth-child(4)`); // Assuming Unit Name is in the 2nd column
+            if (cell) {
+                const cellText = cell.textContent.trim();
+                const rowDisplay = selectedValue === 'All' || cellText === selectedValue ? '' : 'none';
+                row.style.display = rowDisplay;
+            }
+        });
+    }
+           function filterTable4(columnName, selectedValue) {
+        rows.forEach(row => {
+            const cell = row.querySelector(`td:nth-child(9)`); // Assuming Unit Name is in the 2nd column
+            if (cell) {
+                const cellText = cell.textContent.trim();
+                const rowDisplay = selectedValue === 'All' || cellText === selectedValue ? '' : 'none';
+                row.style.display = rowDisplay;
+            }
+        });
+    }
+            function filterTable5(columnName, selectedValue) {
+        rows.forEach(row => {
+            const cell = row.querySelector(`td:nth-child(5)`); // Assuming Unit Name is in the 2nd column
+            if (cell) {
+                const cellText = cell.textContent.trim();
+                const rowDisplay = selectedValue === 'All' || cellText === selectedValue ? '' : 'none';
+                row.style.display = rowDisplay;
+            }
+        });
+    }        function filterTable6(columnName, selectedValue) {
+        rows.forEach(row => {
+            const cell = row.querySelector(`td:nth-child(6)`); // Assuming Unit Name is in the 2nd column
+            if (cell) {
+                const cellText = cell.textContent.trim();
+                const rowDisplay = selectedValue === 'All' || cellText === selectedValue ? '' : 'none';
+                row.style.display = rowDisplay;
+            }
+        });
+    }
+
+
+
+function showPopup(button) {
+    const row = button.closest('tr'); // Find the closest table row
+    const rowData = {
+        SNo: row.cells[0].textContent,
+        UnitName: row.cells[1].textContent,
+        OperationGrade: row.cells[2].textContent,
+        OperatorCode: row.cells[4].textContent,
+        OperatorId: row.cells[9].textContent,
+        SectionName: row.cells[5].textContent,
+        OperationName: row.cells[6].textContent,
+        // Add more properties for other data columns
+    };
+
+    // Retrieve additional data from the 'data-info' attribute
+    const additionalData = JSON.parse(button.getAttribute('data-info'));
+
+    const popupContainer = document.getElementById('popupContainer');
+    const popupContent = document.getElementById('popupContent');
+
+    // Create HTML content for the popup, including "tony" and "caption" values
+    const popupHTML = `
+<!--        Data for ID: ${rowData.SNo}-->
+<!--        <p>NECK: ${additionalData.tony}</p>-->
+<!--        <p>TRUNK: ${additionalData.caption}</p>-->
+<!--        <p>LEG: ${additionalData.miller}</p>-->
+<!--        <p>GRADE A: ${additionalData.lp}</p>-->
+<!--        <p>UPPER ARM: ${additionalData.wanda}</p>-->
+<!--        <p>LOWER ARM: ${additionalData.hulk}</p>-->
+<!--        <p>WRIST: ${additionalData.panther}</p>-->
+<!--        <p>GRADE B: ${additionalData.lg}</p>-->
+<!--        <p>FINAL SCORE: ${additionalData.clr}</p>-->
+        <table class="vertical-popup-table">
+
+            <tr>
+                <td><strong>NECK:</strong></td>
+                <td>${additionalData.tony}</td>
+            </tr>
+            <tr>
+                <td><strong>TRUNK:</strong></td>
+                <td>${additionalData.caption}</td>
+            </tr>
+            <tr>
+                <td><strong>LEG:</strong></td>
+                <td>${additionalData.miller}</td>
+            </tr>
+            <tr>
+                <td><strong>GRADE A:</strong></td>
+                <td>${additionalData.lp}</td>
+            </tr>
+            <tr>
+                <td><strong>UPPER ARM:</strong></td>
+                <td>${additionalData.wanda}</td>
+            </tr>
+            <tr>
+                <td><strong>LOWER ARM:</strong></td>
+                <td>${additionalData.hulk}</td>
+            </tr>
+            <tr>
+                <td><strong>WRIST:</strong></td>
+                <td>${additionalData.panther}</td>
+            </tr>
+            <tr>
+                <td><strong>GRADE B:</strong></td>
+                <td>${additionalData.lg}</td>
+            </tr>
+            <tr>
+                <td><strong>FINAL SCORE:</strong></td>
+                <td>${additionalData.clr}</td>
+            </tr>
+            <!-- Add more data fields as needed -->
+        </table>    `;
+
+    // Set the HTML content of the popupContent div
+    popupContent.innerHTML = popupHTML;
+
+    // Show the popup
+    popupContainer.style.display = 'block';
+}
+
+      function closePopup() {
+        const popupContainer = document.getElementById('popupContainer');
+        popupContainer.style.display = 'none';
+    }
+
+
+     function downloadFile() {
+            // Create an anchor element
+            var a = document.createElement("a");
+            a.href = "path/to/your/local/file.pdf"; // Replace with the path to your local file
+            a.download = "file.pdf"; // Specify the default file name for the download
+
+            // Trigger a click event on the anchor element
+            a.click();
+        }
+
+</script>
+</body>
+</html>

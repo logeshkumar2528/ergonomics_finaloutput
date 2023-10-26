@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500" rel="stylesheet">
+    <!-- Bootstrap css -->
+<!--    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!--  */  <style>-->
+<!--        .navbar {-->
+<!--    background-color: #91b5e0;-->
+<!--    overflow: hidden;-->
+<!--  }-->
+
+<!--  .navbar a {-->
+<!--    float: left;-->
+<!--    color: white;-->
+<!--    text-align: center;-->
+<!--    padding: 14px 16px;-->
+<!--    text-decoration: none;-->
+<!--  }-->
+
+<!--  .navbar a:hover {-->
+<!--    background-color: #56b1cf;-->
+<!--    color: black;-->
+<!--    border-radius: 2px;-->
+<!--  }-->
+<!--  .heading {-->
+<!--    text-align: center;-->
+<!--    padding: 20px;-->
+<!--    background-color: #f2f2f2;-->
+<!--  }-->
+<!--  .header {-->
+<!--    display: flex;-->
+<!--    justify-content: space-between;-->
+<!--  }-->
+
+<!--  .header-bar {-->
+<!--    background-color:#cddff1;-->
+<!--    padding: 10px;-->
+<!--    text-align: center;-->
+<!--    font-size: 24px;-->
+<!--    font-weight: bold;-->
+<!--  }-->
+<!-- .header-bar{-->
+<!--  background-color:#cbcbcb;-->
+<!--  color: rgb(0, 0, 0);-->
+<!-- }-->
+<!-- body{-->
+<!--  background-color:#F0F0F0;-->
+<!-- }-->
+<!-- .menu:hover{-->
+<!-- background-color: #2c81e9;-->
+<!-- }-->
+
+<!--/* Style the video player */-->
+<!--video {-->
+<!--  max-width: 100%;-->
+<!--  border: 5px solid #ccc;-->
+<!--  border-radius: 10px;-->
+<!--  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);-->
+<!--}-->
+<!--/* Your CSS styles go here */-->
+
+<!--/* Flexbox layout to position elements side by side */-->
+<!--.input-container {-->
+<!--  display: flex;-->
+<!--  align-items: center; /* Vertically align items in the container */-->
+<!--}-->
+
+<!--/* Add some spacing between the input box and the dropdown */-->
+<!--#inputBox {-->
+<!--  margin-right: 10px;-->
+<!--}-->
+
+
+<!--    </style>-->
+    <style>
+        body{
+            background-image: url('static/images/home-bg.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        #myquicklink a:hover{
+           background-color: #9AB3D1;
+           color: white;
+           border-radius:3px;
+        }
+        button{
+            border: none;
+            background: none;
+            font-size: 14px;
+        }
+        #save-btn{
+            border: none;
+            background: none;
+            font-size: 14px;
+            position: absolute;
+            top: 91px;
+            left: 195px;
+        }
+
+        .file-input button {
+              padding: 10px 20px;
+              background-color: #B7D1EA;
+              border: 1px solid #B7D1EA;
+              border-radius:3px;
+              cursor: pointer;
+              position: absolute;
+              top: 248px;
+              left: 240px;
+            }
+
+            .file-input button:hover {
+              background-color: #9AB3D1;
+              color: white;
+            }
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+    </style>
+
+</head>
+
+<body onload="displayDate()">
+
+ <nav class="Licensed-section bg-white">
+    <div class="container-fluid">
+        <div class="d-flex justify-content-between mx-4">
+              <nav class="navbar navbar-expand-lg" style="padding-top:0; padding-bottom:0; margin-left: 15px;">
+                <img style="width:5%" src="static/images/VAS Logo.png">
+                <div class="mt-2 ps-2">
+                   <h6 style="font-size: 12px;"><span class="fw-bold text-primary" style="font-family: 'Dancing Script', cursive;">Vas</span> - Visual Analysis Systema</h6>
+                </div>
+              </nav>
+             <nav class="navbar navbar-expand-lg" style="padding-top:0; padding-bottom:0;">
+                <div class="mt-2 ps-2">
+                   <h6 style="font-size: 12px;">Licensed to ISSS</h6>
+                </div>
+             </nav>
+            <nav class="navbar navbar-expand-lg" style="padding-top:0; padding-bottom:0;">
+                <div class="mt-2 ps-2">
+                   <h6 style="font-size: 12px;">Version 5.1</h6>
+                </div>
+             </nav>
+            <nav class="navbar navbar-expand-lg" style="padding-top:0; padding-bottom:0; margin-right: 15px;">
+                <div class="mt-2 ps-2">
+                  <h6 id="date" style="font-size: 12px;"></h6>
+                </div>
+            </nav>
+        </div>
+    </div>
+</nav>
+
+<div id="myquicklink" class="px-4" style="background-color: #B7D1EA;">
+    <div class="container-fluid d-flex flex-wrap align-items-center" style="font-size: 14px;">
+          <ul class="nav me-auto my-1">
+            <li class="nav-item" style="border: 2px solid #4581B3; border-radius: 5px; margin-left: 15px;"><a href="{{ url_for('index') }}" class="nav-link link-dark active fw-bold" aria-current="page"><img src="static/images/Ergonomics-logo.png" style="width: 25px;"> Ergonomics</a></li>
+            <li class="nav-item ms-2" style="border: 2px solid #4581B3; border-radius: 5px;">
+                <form action="{{ url_for('show_result') }}" method="POST">
+                   <button class="nav-link link-dark active fw-bold" aria-current="page"><img src="static/images/SMV-logo.png" style="width: 25px;"> SMV</button>
+                </form></li>
+          </ul>
+          <div class="d-flex justify-content-end">
+              <ul class="nav me-auto my-1">
+                <li class="nav-item" style="border: 2px solid #4581B3; border-radius: 5px;"><a href="#" class="nav-link link-dark active fw-bold" aria-current="page"><img src="static/images/help-logo.jpg" style="width: 25px;"> Help</a></li>
+                <li class="nav-item ms-2" style="border: 2px solid #4581B3; border-radius: 5px; margin-right: 15px;"><a href="#" class="nav-link link-dark active fw-bold" data-bs-toggle="modal" data-bs-target="#pop-up"><img src="static/images/logout-logo.png" style="width: 25px;"> Logout</a></li>
+              </ul>
+          </div>
+    </div>
+</div>
+<div>
+ <form method="post" enctype="multipart/form-data" action="/">
+                <form method="post" enctype="multipart/form-data" action="/result">
+<header id="header" style="box-shadow: 0px 1px 2px #bcbcbc; background-color: #9AB3D1;">
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg d-flex flex-wrap align-items-center" style="padding-top:0; padding-bottom:0;">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+                    <ul class="nav me-auto mx-2" style="font-size: 14px;">
+                         <li class="nav-item">
+                          <div class="file-input">
+                              <input class="nav-link link-dark fw-bold" id="FilePath" type="file" style="display: none;" name="file">
+                              <button type="button" class="fw-bold" style="border: 2px solid #4581B3; border-radius: 5px;" onclick="document.getElementById('FilePath').click()"><i class="fa-solid fa-file-arrow-up" style="color: #005eff;"></i> Choose video</button>
+                            </div>
+                         </li>
+                        <li class="nav-item" style="margin-left: 15px;">
+                             <a id="refreshButton" class="nav-link link-dark fw-bold" href="{{ url_for('index') }}">New</a>
+                        </li>
+                        <li class="nav-item">
+                             <button class="nav-link link-dark fw-bold" type="submit" onclick="videoplay()" value="upload">Analysis</button>
+                        </li>
+                    </ul>
+        </nav>
+    </div>
+</header>
+
+ <!-- Modal -->
+<div class="modal fade" id="pop-up" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Logout</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h6><i class="fa-solid fa-triangle-exclamation" style="color: #e81127;"></i>  Are you sure?</h6>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
+        <a type="button" href="{{ url_for('login') }}" class="btn btn-success">Yes</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+ <body>
+<div class="From-section">
+    <div class="my-4">
+        <div class="container">
+<!--              <form action="{{ url_for('show_result') }}" method="POST">-->
+                 <div class="row">
+                        <div class="col-lg-4 video-wrapper">
+                           <video width="410" height="386" id="Videofile" style="position: relative;" muted>
+                               <source src="" type="video/mp4">
+                           </video>
+                           <div class="progress mt-4" id="progress">
+                               <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" id="VideoRead" style="width: 0%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                           </div>
+                       </div>
+                       <div class="col-lg-4">
+                           <label for="field1">Unit Name:</label>
+                           <input class="form-control ONE" type="text" id="field1 inputBox" name="value1" class="form-control" placeholder="Unit Name"   required>
+                           <label for="field2" style="margin-top: 20px;">Operation Grade:</label>
+                           <input class="form-control TWO" type="text" id="field2" name="value2" class="form-control"placeholder="Operation  Grade" required>
+                           <label for="field3" style="margin-top: 20px;">Operation Name:</label>
+                           <input class="form-control THREE" type="text" id="field3" name="value3" class="form-control"placeholder="Operation Name" required>
+                           <label for="field4" style="margin-top: 20px;">Section Name:</label>
+                           <input class="form-control FOUR" type="text" id="field4" name="value4" class="form-control"placeholder="Section Name" required>
+                           <label for="field5" style="margin-top: 25px;">Operation Code:</label>
+                           <input class="form-control FIVE" type="text" id="field5" name="value5" class="form-control"placeholder="Operation Name" required>
+                       </div>
+                       <div class="col-lg-4">
+                           <label for="field1">Work Aid:</label>
+                           <input class="form-control SIX" type="text" id="field1" name="value6" class="form-control"placeholder="Work Aid" required>
+                           <label for="field2" style="margin-top: 20px;">Description:</label>
+                           <input class="form-control SEVEN" type="text" id="field2" name="value7" class="form-control"placeholder="Description" required>
+                           <label for="field3" style="margin-top: 20px;">Operator ID:</label>
+                           <input class="form-control EIGHT" type="text" id="field3" name="value8" class="form-control"placeholder="Operator ID" required>
+                           <label for="field4" style="margin-top: 20px;">Date:</label>
+                            <input type="date" id="dateInput" class="form-control NINE" name="value9"  readonly>
+<!--                           <input id="save-btn" class="fw-bold" type="submit" value="Save">-->
+                       </div>
+                 </div>
+<!--              </form>-->
+          </div>
+    </div>
+</div>
+
+ </form>
+<div class="Result-section">
+     <div class="py-4">
+         <div class="container">
+             <table class="table table-primary table-hover table-rounded text-center">
+                <tr>
+                    <th>Neck</th>
+                    <th>Trunk</th>
+                    <th>Leg</th>
+                    <th>Grade A</th>
+                    <th>Upper Arm</th>
+                    <th>Lower Arm</th>
+                    <th>Wrist</th>
+                    <th>Grade B</th>
+                    <th>Final Score</th>
+                </tr>
+                <tr>
+                    <td>{{output}}</td>
+                    <td>{{out}}</td>
+                    <td>{{leg}}</td>
+                    <td>{{grade}}</td>
+                    <td>{{upp}}</td>
+                    <td>{{low}}</td>
+                    <td>{{wri}}</td>
+                    <td>{{gra}}</td>
+                    <td>{{final}}</td>
+                </tr>
+             </table>
+         </div>
+     </div>
+</div>
+     <div>
+             <form action="{{ url_for('show_result') }}" method="POST">
+                 <input id="save-btn" class="fw-bold" type="submit" value="Save">
+         </form>
+     </div>
+
+<footer id="footer" style="box-shadow: 0px 1px 2px #bcbcbc; background-color: #4581B3;">
+    <div class="container-fluid text-center" style="font-size: 12px;">
+         <p class="m-0 py-2 text-white">Copyright © 2023 ISSS. All Rights Reserved.</p>
+    </div>
+</footer>
+
+</body>
+
+<!--Bootstrap Script-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!--Custom Script-->
+<script>
+    <!--Date function script-->
+    function updateDate() {
+      const now = new Date();
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+      const formattedDate = now.toLocaleString(undefined, options);
+      document.getElementById("date").innerText = formattedDate;
+    }
+    setInterval(updateDate, 1000);
+    updateDate();
+
+    var VideoPlayer=   document.getElementById("Videofile");
+    var Videoprogres=   document.getElementById("progress");
+    var VideoRead=   document.getElementById("VideoRead");
+    const input = document.getElementById('FilePath');
+    const video = document.getElementById('Videofile');
+    const videoSource = document.createElement('source');
+
+    VideoPlayer.style.display="None"
+    Videoprogres.style.display="None"
+    VideoRead.style.display="None"
+    input.addEventListener('change', function() {
+      const files = this.files || [];
+
+      if (!files.length) return;
+
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        videoSource.setAttribute('src', e.target.result);
+        video.appendChild(videoSource);
+        video.load();
+
+      };
+
+      reader.onprogress = function (e) {
+       var Proc=Math.round((e.loaded * 100) / e.total)
+       if (Proc<100){
+       Videoprogres.style.display=""
+       VideoRead.style.display=""
+       VideoRead.style.width=""+Proc+"%"
+       VideoRead.innerText=""+Proc+"%"
+        console.log('progress: ', Math.round((e.loaded * 100) / e.total));
+        }
+        else{
+        Videoprogres.style.display="None"
+        VideoRead.style.display="None"
+        VideoPlayer.style.display=""
+        console.log('progress: ', Math.round((e.loaded * 100) / e.total));
+        }
+      };
+
+
+
+      reader.readAsDataURL(files[0]);
+    });
+
+        function videoplay(){
+        video.play();
+
+        }
+
+
+      document.getElementById('openLink').addEventListener('click', function(event) {
+        event.preventDefault();
+
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.subdirectory = true;
+        input.directory = true;
+        input.multiple = false;
+        input.addEventListener('change', function(event) {
+            const folderPath = event.target.files[0].path;
+            console.log(folderPath);
+        });
+        input.click();
+      });
+
+      <!--Refresh Button-->
+      document.getElementById("refreshButton").addEventListener("click", function() {
+            location.reload(); // Reloads the current page
+        });
+        function displayDate() {
+            var currentDate = new Date();
+            var day = currentDate.getDate();
+            var month = currentDate.getMonth() + 1; // Note: January is 0!
+            var year = currentDate.getFullYear();
+
+            var formattedDate = year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
+
+            document.getElementById('dateInput').value = formattedDate;
+        }
+
+    const nextPageLink = document.getElementById('nextPageLink');
+    nextPageLink.addEventListener('click', () => {
+      window.location.href = 'dataentry.html';
+    });
+</script>
+</html>
