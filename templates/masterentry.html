@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Master Entry Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-...YOUR_SHASUM_HERE..." crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .form-container {
+            margin-top: 50px;
+            max-width: 500px;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .form-control {
+            border-color: #ced4da;
+        }
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: none;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            transition: background 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container form-container">
+        <h2 class="text-center mb-4">Master Entry</h2>
+        <form action="/submit" method="post">
+            <div class="mb-3">
+                <label for="input1" class="form-label">Input 1</label>
+                <input type="text" class="form-control" id="input1" name="input1" required>
+            </div>
+            <div class="mb-3">
+                <label for="input2" class="form-label">Input 2</label>
+                <input type="text" class="form-control" id="input2" name="input2" required>
+            </div>
+            <div class="mb-3">
+                <label for="input3" class="form-label">Input 3</label>
+                <input type="text" class="form-control" id="input3" name="input3" required>
+            </div>
+            <div class="mb-3">
+                <label for="input4" class="form-label">Input 4</label>
+                <input type="text" class="form-control" id="input4" name="input4" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        </form>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-...YOUR_SHASUM_HERE..." crossorigin="anonymous"></script>
+</body>
+</html>
